@@ -46,5 +46,11 @@ elif dayChoice == "6":
 elif dayChoice == "7":
   y = fileOpenLines(7,"s")
   daySeven = DaySeven(y)
-  print("Part 1: ", daySeven.partOne())
-  print("Part 2: ", daySeven.partTwo())
+  print("Still to solve myself")
+  # print("Part 1: ", daySeven.partOne())
+  # print("Part 2: ", daySeven.partTwo())
+elif dayChoice == "8":
+  y = fileOpenLines(8,"s")
+  dayEight = DayEight(y)
+  print("Part 1: ", dayEight.partOne())
+  print("Part 2: ", dayEight.partTwo())
