@@ -7,6 +7,7 @@ from aoc import fileOpenLines, fileOpenNewLines, ints
 import sys
 
 from day5 import DayFive
+from day7 import DaySeven
 
 if len(sys.argv) > 1:
   dayChoice = sys.argv[1]
@@ -42,3 +43,8 @@ elif dayChoice == "6":
   daySix = DaySix(y)
   print("Part 1: ", daySix.partOne())
   print("Part 2: ", daySix.partTwo())
+elif dayChoice == "7":
+  y = fileOpenLines(7,"s")
+  daySeven = DaySeven(y)
+  print("Part 1: ", daySeven.partOne())
+  print("Part 2: ", daySeven.partTwo())
