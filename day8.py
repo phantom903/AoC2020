@@ -28,5 +28,5 @@ class DayEight:
           prog[i] = "".join(["nop ", arg])
         self.asmCPU.loadProg(deepcopy(prog))
         return self.asmCPU.run()
-      except Exception as e:
+      except LoopError as e:
         pass
