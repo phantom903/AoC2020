@@ -8,6 +8,7 @@ import sys
 
 from day5 import DayFive
 from day7 import DaySeven
+from day8 import DayEight
 
 if len(sys.argv) > 1:
   dayChoice = sys.argv[1]

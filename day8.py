@@ -1,14 +1,32 @@
 from aoc import *
-
+from aocasm import *
+from copy import deepcopy
+      
 class DayEight:
 
-  mem = []
+  asmCPU = None
+  prog = []
 
   def __init__(self, mem):
-    self.mem = mem.copy()
+    self.asmCPU = AoCASM(deepcopy(mem))
+    self.prog = deepcopy(mem)
 
   def partOne(self):
-    pass
+    try:
+      return self.asmCPU.run()
+    except LoopError as e:
+      return e
 
   def partTwo(self):
-    pass
+    for i in range(len(self.prog)):
+      try:
+        prog = deepcopy(self.prog)
+        op, arg = prog[i].split()
+        if op == "nop":
+          prog[i] = "".join(["jmp ", arg])
+        elif op == "jmp":
+          prog[i] = "".join(["nop ", arg])
+        self.asmCPU.loadProg(deepcopy(prog))
+        return self.asmCPU.run()
+      except Exception as e:
+        pass
