@@ -9,6 +9,7 @@ import sys
 from day5 import DayFive
 from day7 import DaySeven
 from day8 import DayEight
+from day9 import DayNine
 
 if len(sys.argv) > 1:
   dayChoice = sys.argv[1]
@@ -55,3 +56,8 @@ elif dayChoice == "8":
   dayEight = DayEight(y)
   print("Part 1: ", dayEight.partOne())
   print("Part 2: ", dayEight.partTwo())
+elif dayChoice == "9":
+  y = fileOpenLines(9,"i")
+  dayNine = DayNine(y)
+  print("Part 1: ", dayNine.partOne())
+  print("Part 2: ", dayNine.partTwo())
