@@ -1,50 +1,57 @@
 from aoc import *
 from copy import deepcopy
 
+# ~6.02s with [list] of [list]s
+# ~3.87s with sets
+
 class DayEleven:
 
   mem = []
+  emptySeats = set()
+  fullSeats = set()
+  rows = 0
+  cols = 0
 
   def __init__(self, mem):
-    self.mem = deepcopy(mem)
-    for i in range(len(self.mem)):
-      self.mem[i] = ['#' if j == 'L' else '.' for j in self.mem[i]]
+    self.mem = mem.copy()
+    self.rows = len(mem)
+    self.cols = len(mem[0])
+    for y in range(self.rows):
+      for x in range(self.cols):
+        if self.mem[y][x] == 'L':
+          self.fullSeats.add((x,y))
 
-  def checkAdj(self, data, xy):
+  def checkAdj(self, changesE, changesF, xy):
     dirs = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(-1,1),(1,-1),(-1,-1)]
-    maxX = len(data[0])
-    maxY = len(data)
     count = 0
     for x, y in dirs:
-      if (0 <= (xy[0]+x) < maxX) and (0 <= (xy[1]+y) < maxY):
-        if data[xy[1]+ y][xy[0] + x] == '#':
+      pos = (x+xy[0],y+xy[1])
+      if ((pos in self.fullSeats) or (pos in changesE)) and (pos not in changesF):
           count += 1
     return count
 
-  def changeMap(self, origMap):
-    changes = 0
-    newMem = deepcopy(origMap)
-    for y in range(len(origMap)):
-      for x in range(len(origMap[0])):
-        adjSeats = self.checkAdj(origMap, [x,y])
-        curSeat = origMap[y][x]
-        if curSeat == '#' and adjSeats >= 4:
-            newMem[y][x] = 'L'
-            changes += 1
-        elif curSeat == 'L' and adjSeats == 0:
-            newMem[y][x] = '#'
-            changes =+ 1
-    return deepcopy(newMem), changes
+  def changeMap(self):
+    changesE = set()
+    changesF = set()
+    for y in range(self.rows):
+      for x in range(self.cols):
+        adjSeats = self.checkAdj(changesE, changesF, [x,y])
+        if adjSeats >= 4 and (x,y) in self.fullSeats:
+          self.emptySeats.add((x,y))
+          self.fullSeats.remove((x,y))
+          changesE.add((x,y))
+        elif adjSeats == 0 and (x,y) in self.emptySeats:
+          self.emptySeats.remove((x,y))
+          self.fullSeats.add((x,y))
+          changesF.add((x,y))
+    return len(changesE)+len(changesF)
 
   def partOne(self):
     changes = 1
-    p1map = deepcopy(self.mem)
     result = 0
     while changes != 0:
-      p1map, changes = self.changeMap(p1map) 
-    for y in range(len(p1map)):
-      for x in range(len(p1map[0])):
-        result += 1 if p1map[y][x] == '#' else 0
+      changes = self.changeMap()
+    result = len(self.fullSeats)
     return result 
 
   def partTwo(self):

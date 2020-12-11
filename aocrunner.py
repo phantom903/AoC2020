@@ -5,7 +5,7 @@ from day3 import DayThree
 from day4 import DayFour
 from aoc import fileOpenLines, fileOpenNewLines, ints
 import sys
-
+import time
 from day5 import DayFive
 from day7 import DaySeven
 from day8 import DayEight
@@ -71,5 +71,6 @@ elif dayChoice == "10":
 elif dayChoice == "11":
   y = fileOpenLines(11,"s")
   dayEleven = DayEleven(y)
-  print("Part 1: ", dayEleven.partOne())
+  startTime = time.time()
+  print("Part 1: ", dayEleven.partOne(), " in ", round(time.time() - startTime,2), "s")
   print("Part 2: ", dayEleven.partTwo())
