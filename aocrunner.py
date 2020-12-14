@@ -91,3 +91,11 @@ elif dayChoice == "13":
   print("Part 1: ", dayThirteen.partOne(), " in ", round(time.time() - startTime, 2), "s")
   startTime = time.time()
   print("Part 2: ", dayThirteen.partTwo(), " in ", round(time.time() - startTime, 2), "s")
+elif dayChoice == "14":
+  from day14 import DayFourteen
+  y = fileOpenLines(14,"s")
+  dayFourteen = DayFourteen(y)
+  startTime = time.time()
+  print("Part 1: ", dayFourteen.partOne(), " in ", round(time.time() - startTime, 2), "s")
+  startTime = time.time()
+  print("Part 2: ", dayFourteen.partTwo(), " in ", round(time.time() - startTime, 2), "s")
